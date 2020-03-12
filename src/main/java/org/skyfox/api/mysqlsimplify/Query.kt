@@ -147,6 +147,19 @@ class Query(var query: String, var values: ArrayList<Any?>) {
             return Query("DELETE FROM $tableName;", arrayListOf())
         }
 
+        fun update(tableName: String, values: Array<Value>): Query {
+            var valueString = ""
+            val queryValues = arrayListOf<Any?>()
+            values.forEach { value ->
+                valueString += "${value.key} = ?, "
+                queryValues.add(value.value)
+            }
+            if(valueString.length >= 2) {
+                valueString = valueString.substring(0, valueString.length-2)
+            }
+            return Query("UPDATE $tableName SET $valueString;", queryValues)
+        }
+
     }
 
 }
