@@ -9,7 +9,6 @@ class Results {
             /*COLUMN ALREADY EXISTS*/
             val hashMap = results[column]
             hashMap[key] = value
-            results[column] = hashMap
         }else{
             /*NEW COLUMN*/
             val hashMap = hashMapOf<String, Any?>()
