@@ -82,6 +82,9 @@ class Query(var query: String, var values: ArrayList<Any?>) {
         query = newQuery
         return this
     }
+    fun where(column: String, selector: Selector, value: Any?): Query {
+        return where(column, selector, arrayOf(value))
+    }
     fun andWhere(column: String, selector: Selector, values: Array<Any?>): Query {
         var newQuery = query.substring(0, query.length-1)
         var valueString = ""
@@ -94,6 +97,9 @@ class Query(var query: String, var values: ArrayList<Any?>) {
         query = newQuery
         return this
     }
+    fun andWhere(column: String, selector: Selector, value: Any?): Query {
+        return andWhere(column, selector, arrayOf(value))
+    }
     fun orWhere(column: String, selector: Selector, values: Array<Any?>): Query {
         var newQuery = query.substring(0, query.length-1)
         var valueString = ""
@@ -105,6 +111,9 @@ class Query(var query: String, var values: ArrayList<Any?>) {
         newQuery += " OR $column ${selector.selectorString} $valueString;"
         query = newQuery
         return this
+    }
+    fun orWhere(column: String, selector: Selector, value: Any?): Query {
+        return orWhere(column, selector, arrayOf(value))
     }
 
     companion object {
@@ -132,6 +141,10 @@ class Query(var query: String, var values: ArrayList<Any?>) {
             return Query("SELECT $valueString FROM $tableName;", arrayListOf()).apply {
                 resultKeys = selectValues
             }
+        }
+
+        fun deleteFrom(tableName: String): Query {
+            return Query("DELETE FROM $tableName;", arrayListOf())
         }
 
     }
