@@ -7,9 +7,9 @@ class Results {
     fun addResult(column: Int, key: String, value: Any?) {
         if(results.size-1 >= column) {
             /*COLUMN ALREADY EXISTS*/
-            val hashMap = results.get(column)
+            val hashMap = results[column]
             hashMap[key] = value
-            results.add(column, hashMap)
+            results[column] = hashMap
         }else{
             /*NEW COLUMN*/
             val hashMap = hashMapOf<String, Any?>()
