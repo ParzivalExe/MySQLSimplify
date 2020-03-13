@@ -58,6 +58,18 @@ class TableValue private constructor(var valueName: String, var valueType: Strin
         fun integer(valueName: String): TableValue {
             return integer(valueName, false, false)
         }
+
+        fun boolean(valueName: String, primaryKey: Boolean, additionalArguments: ArrayList<String>): TableValue {
+            return TableValue(valueName, "BOOLEAN", primaryKey, additionalArguments)
+        }
+        fun boolean(valueName: String, primaryKey: Boolean, notNull: Boolean): TableValue {
+            val additionalArguments = arrayListOf<String>()
+            if(notNull) additionalArguments.add("NOT NULL")
+            return boolean(valueName, primaryKey, additionalArguments)
+        }
+        fun boolean(valueName: String): TableValue {
+            return integer(valueName, primaryKey = false, notNull = false)
+        }
     }
 
     /**
